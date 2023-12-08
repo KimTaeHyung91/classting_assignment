@@ -8,6 +8,17 @@ export namespace UserDto {
     ADMIN = 'ADMIN',
   }
 
+  export class LoginRequest {
+    @Expose()
+    @IsEmail()
+    @IsNotEmpty()
+    readonly email: string;
+
+    @Expose()
+    @IsNotEmpty()
+    readonly password: string;
+  }
+
   export class RegisterUserRequest {
     @Expose()
     @IsNotEmpty()
@@ -40,6 +51,11 @@ export namespace UserDto {
   export class RegisterUserResponse {
     @Expose()
     readonly userToken: string;
+  }
+
+  export class LoginResponse {
+    @Expose()
+    readonly accessToken: string;
   }
 
   export class Main {

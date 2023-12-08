@@ -8,6 +8,8 @@ import { UserEntity } from './user/domain/user.entity';
 import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 import * as dotenv from 'dotenv';
 import configuration from './config/configuration';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthModule } from './auth/auth.module';
 
 dotenv.config();
 
@@ -17,6 +19,15 @@ dotenv.config();
       isGlobal: true,
       envFilePath: [`env/.${process.env.NODE_ENV}.env`],
       load: [configuration],
+    }),
+    JwtModule.registerAsync({
+      useFactory: (configService: ConfigService) => ({
+        global: true,
+        secret:
+          configService.get<ConfigType<typeof configuration>>('config').jwt
+            .secretKey,
+      }),
+      inject: [ConfigService],
     }),
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
@@ -42,6 +53,7 @@ dotenv.config();
       inject: [ConfigService],
     }),
     UserModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

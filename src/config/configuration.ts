@@ -11,5 +11,8 @@ export default registerAs('config', () => ({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE_NAME,
   },
+  jwt: {
+    secretKey: process.env.ACCESS_TOKEN_SECRET_KEY,
+  },
   env: process.env.NODE_ENV,
 }));

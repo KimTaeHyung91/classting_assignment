@@ -15,4 +15,12 @@ export namespace UserInfo {
     @Expose()
     readonly role: UserRole;
   }
+
+  export class SignInfo {
+    @Expose({ name: 'userToken' })
+    readonly sub: number;
+
+    @Expose()
+    readonly email: string;
+  }
 }
