@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  classting-assginement-production-db:
+    image: mysql:8.0
+    ports:
+      - "23306:3306"
+    environment:
+      - MYSQL_DATABASE=classting_assignment
+      - MYSQL_ROOT_PASSWORD=root-production-pass
+      - MYSQL_USER=production
+      - MYSQL_PASSWORD=production-pass
+      - TZ=UTC
+    command: # 명령어 실행
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --lower_case_table_names=1
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./init-files:/docker-entrypoint-initdb.d
+      - ./conf.d:/etc/mysql/conf.d
