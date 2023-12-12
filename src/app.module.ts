@@ -1,15 +1,14 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { DataSource } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-import { UserEntity } from './user/domain/user.entity';
 import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
 import * as dotenv from 'dotenv';
 import configuration from './config/configuration';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthModule } from './auth/auth.module';
+import { NewsFeedModule } from './news-feed/news-feed.module';
+import { SchoolPageEntity } from './news-feed/domain/school/school-page.entity';
 
 dotenv.config();
 
@@ -43,7 +42,7 @@ dotenv.config();
           port: +config.db.port,
           synchronize: false,
           logging: true,
-          entities: [UserEntity],
+          entities: [SchoolPageEntity],
           namingStrategy: new SnakeNamingStrategy(),
         };
       },
@@ -52,8 +51,7 @@ dotenv.config();
 
       inject: [ConfigService],
     }),
-    UserModule,
-    AuthModule,
+    NewsFeedModule,
   ],
   controllers: [],
   providers: [],
