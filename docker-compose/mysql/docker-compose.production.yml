@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  production-db:
+    image: mysql:8.0
+    ports:
+      - "23306:3306"
+    environment:
+      - MYSQL_DATABASE=classting
+      - MYSQL_ROOT_PASSWORD=2qbVYtKxrWWWkEJ
+      - MYSQL_USER=classting_prod
+      - MYSQL_PASSWORD=wVlWlsdZ6AtAFQg
+      - TZ=UTC
+    command: # 명령어 실행
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --lower_case_table_names=1
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./conf.d:/etc/mysql/conf.d
